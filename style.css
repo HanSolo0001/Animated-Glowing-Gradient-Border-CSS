@@ -1,3 +1,9 @@
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
 :root {
     --clr-1: #052b2f;
     --clr-2: #073438;
@@ -29,11 +35,31 @@ body {
 .card::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: var(--clr-5);
+    inset: -.5rem;
+    z-index: -1;
+    /*lineargradientnotbestsolutionforthisbutimprovelateraccordingtokevinpowellvideo*/
+    /*background: linear-gradient( 0deg, var(--clr-3), var(--clr-4), var(--clr-5));
+    */
+    background: conic-gradient(from var(--gradient-angle), var(--clr-3), var(--clr-4), var(--clr-5), var(--clr-4), var(--clr-3));
+    animation: rotation 20s linear infinite;
     border-radius: inherit;
     -webkit-border-radius: inherit;
     -moz-border-radius: inherit;
     -ms-border-radius: inherit;
     -o-border-radius: inherit;
+    -webkit-animation: rotation 20s linear infinite;
+}
+
+.card::after {
+    filter: blur(3.5rem);
+    -webkit-filter: blur(3.5rem);
+}
+
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+    100% {
+        --gradient-angle: 360deg;
+    }
 }
